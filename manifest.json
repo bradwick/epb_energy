@@ -1,0 +1,17 @@
+{
+  "domain": "epb_energy",
+  "name": "EPB Energy",
+  "documentation": "https://example.com/epb_energy",
+  "requirements": [
+    "aiohttp"
+  ],
+  "dependencies": [],
+  "codeowners": [],
+  "config_flow": true,
+  "homeassistant": {
+    "version": "2023.1.0",
+    "entities": [
+      "sensor"
+    ]
+  }
+}
