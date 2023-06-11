@@ -4,7 +4,7 @@
 import voluptuous as vol
 from homeassistant import config_entries
 
-DOMAIN = "epb_energy"
+from const import DOMAIN
 
 
 class EPBEnergyFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
