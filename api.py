@@ -33,6 +33,8 @@ class EpbEnergyApiClient:
             _LOGGER.warning("here44")
             account_info_url = "https://api.epb.com/web/api/v1/account-links/"
             async with session.get(account_info_url) as account_response:
+                _LOGGER.warning("here444")
+
                 _LOGGER.warning(f"status: {account_response.status}")
                 if account_response.status == 200:
                     account_data = await account_response.json()
