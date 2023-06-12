@@ -39,7 +39,7 @@ class EPBEnergySensor(SensorEntity):
         return "EPB Energy"
 
     @property
-    def state(self):
+    async def state(self):
         """Return the state of the sensor."""
         return await self.coordinator.api.get_data()
 
