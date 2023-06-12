@@ -6,6 +6,7 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant import config_entries, exceptions
 from homeassistant.util import aiohttp
+from voluptuous import Any
 
 from .const import DOMAIN
 
