@@ -36,6 +36,7 @@ class EpbEnergyApiClient:
                     _LOGGER.warning("here444")
 
                     _LOGGER.warning(f"status: {account_response.status}")
+                    _LOGGER.warning(f"response: {await account_response.text()}")
                     if account_response.status == 200:
                         account_data = await account_response.json()
                         gis_id = account_data["premise"]["gis_id"]
