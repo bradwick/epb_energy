@@ -40,7 +40,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     if entry.options.get("sensor", True):
         coordinator.platforms.append("sensor")
         hass.async_add_job(
-            hass.config_entries.a(entry, "sensor")
+            hass.config_entries.async_forward_entry_setup(entry, "sensor")
         )
 
     return True
