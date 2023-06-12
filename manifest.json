@@ -1,18 +1,12 @@
 {
+  "version": "2023.06.12",
   "domain": "epb_energy",
   "name": "EPB Energy",
-  "integration_type": "device",
-  "documentation": "https://example.com/epb_energy",
-  "requirements": [
-    "aiohttp"
-  ],
-  "dependencies": [],
   "codeowners": [],
-  "config_flow": true,
-  "homeassistant": {
-    "version": "2023.1.0",
-    "entities": [
-      "sensor"
-    ]
-  }
+  "dependencies": [],
+  "documentation": "https://www.example.com",
+  "integration_type": "device",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "config_flow": true
 }
