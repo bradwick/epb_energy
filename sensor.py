@@ -5,12 +5,14 @@ import aiohttp
 
 from .const import DOMAIN
 from .api import EpbEnergyApiClient
+from . import EpbEnergyUpdateCoordinator
 
 """Sensor platform for the EPB Energy integration."""
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import SensorEntity
+from homeassistant.config_entries import ConfigEntry
 
 
-async def async_setup_entry(hass, config, async_add_entities):
+async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the EPB Energy sensor platform."""
 
     username = config[DOMAIN]["username"]
@@ -21,14 +23,19 @@ async def async_setup_entry(hass, config, async_add_entities):
     async_add_entities([sensor], True)
 
 
-class EPBEnergySensor(Entity):
+class EPBEnergySensor(SensorEntity):
     """Representation of a sensor."""
 
-    def __init__(self, username, password):
+    def __init__(self,
+                 coordinator: EpbEnergyUpdateCoordinator,
+                 entry: ConfigEntry,
+                 name: str):
         """Initialize the sensor."""
-        self._username = username
-        self._password = password
-        self._state = None
+        super().__init__(coordinator, entry)
+        self.coordinator = coordinator
+        self.sensor_name = "energy_usage"
+        self._attr_icon = "mdi:home-lightning-bolt"
+        self.friendly_name: "EPB Energy Usage"
 
     async def async_update(self):
         """Fetch the latest power usage data."""
@@ -43,7 +50,7 @@ class EPBEnergySensor(Entity):
     @property
     def state(self):
         """Return the state of the sensor."""
-        return self._state
+        return self.coordinator.api.get_data()
 
     @property
     def device_info(self):
