@@ -57,7 +57,7 @@ class EpbEnergyApiClient:
 
                         this_hour = int(datetime.now().strftime("%H"))
 
-                        _LOGGER.warning()
+                        _LOGGER.warning(data["data"][this_hour])
 
                         self.kwh = data["data"][this_hour]["a"]["values"]["pos_kwh"]
             except Exception as e:
