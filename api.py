@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 
 import aiohttp
+from pytz import timezone
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
@@ -44,6 +45,7 @@ class EpbEnergyApiClient:
                     _LOGGER.warning("here5")
 
                     data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
+                    tz = timezone("EST")
 
                     async with session.post(
                             data_url,
@@ -55,7 +57,7 @@ class EpbEnergyApiClient:
                         _LOGGER.warning("here6")
                         _LOGGER.warning(data)
 
-                        this_hour = int(datetime.now().strftime("%H"))
+                        this_hour = int(datetime.now(tz).strftime("%H"))
 
                         _LOGGER.warning(data["data"][this_hour])
 
