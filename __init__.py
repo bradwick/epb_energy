@@ -60,7 +60,6 @@ class EpbEnergyUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         """Update data via library."""
-        _LOGGER.warning("here3")
 
         try:
             return await self.api.get_data()
