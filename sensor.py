@@ -52,6 +52,10 @@ class EPBEnergySensor(SensorEntity):
         return SensorStateClass.MEASUREMENT
 
     @property
+    def last_reset(self) -> datetime | None:
+        return datetime.today()
+
+    @property
     def device_info(self):
         """Return device information."""
         return {
