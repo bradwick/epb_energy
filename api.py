@@ -35,14 +35,18 @@ class EpbEnergyApiClient:
                     account_data = await account_response.json()
                     gis_id = account_data["premise"]["gis_id"]
                     account_num = account_data["power_account"]["account_id"]
+                _LOGGER.warning("here5")
 
-            data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
 
-            async with session.post(
-                    data_url,
-                    json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
-                          "usage_date": datetime.today().strftime('%Y-%m-%d')}
-            ) as data_response:
-                data = await data_response.json()
-                # Parse the data and update self._state
-                self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
+                data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
+
+                async with session.post(
+                        data_url,
+                        json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
+                              "usage_date": datetime.today().strftime('%Y-%m-%d')}
+                ) as data_response:
+                    data = await data_response.json()
+                    # Parse the data and update self._state
+                    _LOGGER.warning("here6")
+                    _LOGGER.warning(data)
+                    self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
