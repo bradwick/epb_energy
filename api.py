@@ -32,26 +32,29 @@ class EpbEnergyApiClient:
         async with self.session as session:
             _LOGGER.warning("here44")
             account_info_url = "https://api.epb.com/web/api/v1/account-links/"
-            async with session.get(account_info_url) as account_response:
-                _LOGGER.warning("here444")
+            try:
+                async with session.get(account_info_url) as account_response:
+                    _LOGGER.warning("here444")
 
-                _LOGGER.warning(f"status: {account_response.status}")
-                if account_response.status == 200:
-                    account_data = await account_response.json()
-                    gis_id = account_data["premise"]["gis_id"]
-                    account_num = account_data["power_account"]["account_id"]
-                _LOGGER.warning("here5")
+                    _LOGGER.warning(f"status: {account_response.status}")
+                    if account_response.status == 200:
+                        account_data = await account_response.json()
+                        gis_id = account_data["premise"]["gis_id"]
+                        account_num = account_data["power_account"]["account_id"]
+                    _LOGGER.warning("here5")
 
 
-                data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
+                    data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
 
-                async with session.post(
-                        data_url,
-                        json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
-                              "usage_date": datetime.today().strftime('%Y-%m-%d')}
-                ) as data_response:
-                    data = await data_response.json()
-                    # Parse the data and update self._state
-                    _LOGGER.warning("here6")
-                    _LOGGER.warning(data)
-                    self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
+                    async with session.post(
+                            data_url,
+                            json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
+                                  "usage_date": datetime.today().strftime('%Y-%m-%d')}
+                    ) as data_response:
+                        data = await data_response.json()
+                        # Parse the data and update self._state
+                        _LOGGER.warning("here6")
+                        _LOGGER.warning(data)
+                        self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
+            except Exception as e:
+                _LOGGER.warning(e)
