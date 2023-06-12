@@ -25,8 +25,7 @@ class EPBEnergySensor(SensorEntity):
 
     def __init__(self,
                  coordinator: EpbEnergyUpdateCoordinator,
-                 entry: ConfigEntry,
-                 name: str):
+                 entry: ConfigEntry):
         """Initialize the sensor."""
         super().__init__(coordinator, entry)
         self.coordinator = coordinator
