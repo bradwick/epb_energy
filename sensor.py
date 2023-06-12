@@ -2,6 +2,7 @@
 from datetime import datetime
 
 import aiohttp
+from homeassistant.helpers.entity import DeviceInfo
 
 from .const import DOMAIN
 from .api import EpbEnergyApiClient
@@ -32,6 +33,7 @@ class EPBEnergySensor(SensorEntity):
         self.sensor_name = "energy_usage"
         self._attr_icon = "mdi:home-lightning-bolt"
         self.friendly_name: "EPB Energy Usage"
+        self.id = entry.entry_id
 
     @property
     def name(self):
@@ -63,7 +65,7 @@ class EPBEnergySensor(SensorEntity):
     def device_info(self):
         """Return device information."""
         return {
-            "identifiers": {(DOMAIN, self.sensor_name)},
+            "identifiers": {(DOMAIN, self.unique_id)},
             "name": "EPB Energy",
             "manufacturer": "EPB",
             "model": "Energy Monitor",
@@ -72,3 +74,7 @@ class EPBEnergySensor(SensorEntity):
     @property
     def icon(self):
         return self._attr_icon
+
+    @property
+    def unique_id(self) -> str | None:
+        return self.id
