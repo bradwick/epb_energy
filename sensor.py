@@ -33,11 +33,6 @@ class EPBEnergySensor(SensorEntity):
         self._attr_icon = "mdi:home-lightning-bolt"
         self.friendly_name: "EPB Energy Usage"
 
-    async def async_update(self):
-        """Fetch the latest power usage data."""
-        client = EpbEnergyApiClient(self._username, self._password)
-        self._state = await client.get_data()
-
     @property
     def name(self):
         """Return the name of the sensor."""
