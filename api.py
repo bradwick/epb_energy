@@ -45,7 +45,6 @@ class EpbEnergyApiClient:
                         account_num = account_data["power_account"]["account_id"]
                     _LOGGER.warning("here5")
 
-
                     data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
 
                     async with session.post(
@@ -57,6 +56,6 @@ class EpbEnergyApiClient:
                         # Parse the data and update self._state
                         _LOGGER.warning("here6")
                         _LOGGER.warning(data)
-                        self.kwh = data["data"][int (datetime.now().strftime("%H"))]["a"]["values"]["pos_kwh"]
+                        self.kwh = data["data"][int(datetime.now().strftime("%H"))]["a"]["values"]["pos_kwh"]
             except Exception as e:
                 _LOGGER.warning(e)
