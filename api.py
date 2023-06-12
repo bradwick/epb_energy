@@ -24,15 +24,12 @@ class EpbEnergyApiClient:
                 return False
             json = await response.json()
             self.session.headers.add("X-User-Token", json["tokens"]["access"]["token"])
-        _LOGGER.warning("done_logging in")
         return True
 
     async def get_data(self):
-        _LOGGER.warning("here4")
 
         await self.login()
         async with self.session as session:
-            _LOGGER.warning("here44")
             account_info_url = "https://api.epb.com/web/api/v1/account-links/"
             try:
                 async with session.get(account_info_url) as account_response:
@@ -42,7 +39,6 @@ class EpbEnergyApiClient:
                         account_data = await account_response.json()
                         gis_id = account_data[0]["premise"]["gis_id"]
                         account_num = account_data[0]["power_account"]["account_id"]
-                    _LOGGER.warning("here5")
 
                     data_url = "https://api.epb.com/web/api/v1/usage/power/permanent/compare/hourly"
                     tz = timezone("EST")
@@ -54,12 +50,9 @@ class EpbEnergyApiClient:
                     ) as data_response:
                         data = await data_response.json()
                         # Parse the data and update self._state
-                        _LOGGER.warning("here6")
-                        _LOGGER.warning(data)
 
                         this_hour = int(datetime.now(tz).strftime("%H"))
 
-                        _LOGGER.warning(data["data"][this_hour])
 
                         self.kwh = data["data"][this_hour]["a"]["values"]["pos_kwh"]
             except Exception as e:

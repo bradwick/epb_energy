@@ -26,7 +26,6 @@ async def async_setup(hass: HomeAssistant, config: Config):
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up this integration using UI."""
-    _LOGGER.warning("here1")
 
     if hass.data.get(DOMAIN) is None:
         hass.data.setdefault(DOMAIN, {})
@@ -44,7 +43,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.async_add_job(
             hass.config_entries.async_forward_entry_setup(entry, "sensor")
         )
-    _LOGGER.warning("here2")
 
     return True
 
