@@ -39,9 +39,9 @@ class EPBEnergySensor(SensorEntity):
         return "EPB Energy"
 
     @property
-    async def state(self):
+    def native_value(self):
         """Return the state of the sensor."""
-        return await self.coordinator.api.get_data()
+        return self.coordinator.api.get_data()
 
     @property
     def device_info(self):
@@ -52,3 +52,7 @@ class EPBEnergySensor(SensorEntity):
             "manufacturer": "EPB",
             "model": "Energy Monitor",
         }
+
+    @property
+    def icon(self):
+        return self._attr_icon
