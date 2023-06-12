@@ -57,6 +57,6 @@ class EpbEnergyApiClient:
                         # Parse the data and update self._state
                         _LOGGER.warning("here6")
                         _LOGGER.warning(data)
-                        self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
+                        self.kwh = data["data"][int (datetime.now().strftime("%H"))]["a"]["values"]["pos_kwh"]
             except Exception as e:
                 _LOGGER.warning(e)
