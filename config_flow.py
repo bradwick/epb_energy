@@ -12,7 +12,7 @@ class EPBEnergyFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     async def async_step_user(self, user_input=None):
         """Handle a flow initiated by the user."""
         if user_input is None:
-            return self._show_config_form()
+            return await self._show_config_form()
 
         # Validate and store user input
 
