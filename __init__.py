@@ -1,4 +1,5 @@
 # epb_energy/__init__.py
+import logging
 from datetime import timedelta
 
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
@@ -14,6 +15,8 @@ from homeassistant.core import Config, HomeAssistant
 DOMAIN = DOMAIN
 
 SCAN_INTERVAL = timedelta(hours=1)
+
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 async def async_setup(hass: HomeAssistant, config: Config):
@@ -48,7 +51,7 @@ class EpbEnergyUpdateCoordinator(DataUpdateCoordinator):
         self.api = client
         self.platforms = []
 
-        super().__init__(hass, name=DOMAIN, update_interval=SCAN_INTERVAL)
+        super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=SCAN_INTERVAL)
 
     async def _async_update_data(self):
         """Update data via library."""
