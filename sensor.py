@@ -14,12 +14,9 @@ from homeassistant.config_entries import ConfigEntry
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the EPB Energy sensor platform."""
-
-    username = config[DOMAIN]["username"]
-    password = config[DOMAIN]["password"]
-
     # Initialize and add the sensor entity
-    sensor = EPBEnergySensor(username, password)
+    coordinator = hass.data[DOMAIN][entry.entry_id]
+    sensor = EPBEnergySensor(coordinator, entry)
     async_add_entities([sensor], True)
 
 
