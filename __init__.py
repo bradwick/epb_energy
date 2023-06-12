@@ -31,6 +31,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     if hass.data.get(DOMAIN) is None:
         hass.data.setdefault(DOMAIN, {})
 
+    _LOGGER.warning(f"data {hass.data.get(DOMAIN)}")
+
     client = EpbEnergyApiClient(entry.data.get("username"), entry.data.get("password"))
     coordinator = EpbEnergyUpdateCoordinator(hass, client)
 
