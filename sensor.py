@@ -8,7 +8,7 @@ from .api import EpbEnergyApiClient
 from . import EpbEnergyUpdateCoordinator
 
 """Sensor platform for the EPB Energy integration."""
-from homeassistant.components.sensor import SensorEntity, SensorStateClass
+from homeassistant.components.sensor import SensorEntity, SensorStateClass, SensorDeviceClass
 from homeassistant.config_entries import ConfigEntry
 
 
@@ -49,11 +49,15 @@ class EPBEnergySensor(SensorEntity):
 
     @property
     def state_class(self) -> SensorStateClass | str | None:
-        return SensorStateClass.MEASUREMENT
+        return SensorStateClass.TOTAL
+
+    @property
+    def device_class(self) -> SensorDeviceClass | None:
+        return SensorDeviceClass.ENERGY
 
     @property
     def last_reset(self) -> datetime | None:
-        return datetime.today()
+        return datetime.now()
 
     @property
     def device_info(self):
