@@ -10,7 +10,7 @@ from .api import EpbEnergyApiClient
 from homeassistant.helpers.entity import Entity
 
 
-async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+async def async_setup_entry(hass, config, async_add_entities):
     """Set up the EPB Energy sensor platform."""
 
     username = config[DOMAIN]["username"]
@@ -18,7 +18,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
 
     # Initialize and add the sensor entity
     sensor = EPBEnergySensor(username, password)
-    async_add_entities([sensor])
+    async_add_entities([sensor], True)
 
 
 class EPBEnergySensor(Entity):
