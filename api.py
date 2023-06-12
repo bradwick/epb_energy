@@ -16,7 +16,7 @@ class EpbEnergyApiClient:
     async def login(self):
         async with self.session as session:
             _LOGGER.warning("in login")
-            _LOGGER.warning(f"user passed in" {self.username})
+            _LOGGER.warning(f"user passed in {self.username}")
             login_url = "https://api.epb.com/web/api/v1/login/"
             async with session.post(
                     login_url,
