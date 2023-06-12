@@ -11,7 +11,6 @@ class EpbEnergyApiClient:
         self.session = aiohttp.ClientSession()
         self.username = username
         self.password = password
-        self.token = None
         self.kwh = 0
 
     async def login(self):
@@ -22,7 +21,8 @@ class EpbEnergyApiClient:
         ) as response:
             if response.status != 200:
                 return False
-            _LOGGER.warning(await response.text())
+            json = await response.json()
+            self.session.headers.add("X-Access-Token", json["tokens"]["access"]["token"])
         _LOGGER.warning("done_logging in")
         return True
 
