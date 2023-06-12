@@ -27,7 +27,7 @@ class EPBEnergySensor(SensorEntity):
                  coordinator: EpbEnergyUpdateCoordinator,
                  entry: ConfigEntry):
         """Initialize the sensor."""
-        super().__init__(coordinator, entry)
+        super().__init__()
         self.coordinator = coordinator
         self.sensor_name = "energy_usage"
         self._attr_icon = "mdi:home-lightning-bolt"
