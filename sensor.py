@@ -3,7 +3,7 @@ from datetime import datetime
 
 import aiohttp
 
-from const import DOMAIN
+from .const import DOMAIN
 
 """Sensor platform for the EPB Energy integration."""
 from homeassistant.helpers.entity import Entity
