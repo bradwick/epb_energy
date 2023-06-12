@@ -1,7 +1,7 @@
 # epb_energy/__init__.py
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from const import DOMAIN, CONF_USERNAME, CONF_PASSWORD
+from .const import DOMAIN, CONF_USERNAME, CONF_PASSWORD
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Config, HomeAssistant
 
