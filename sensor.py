@@ -8,7 +8,7 @@ from .api import EpbEnergyApiClient
 from . import EpbEnergyUpdateCoordinator
 
 """Sensor platform for the EPB Energy integration."""
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import SensorEntity, SensorStateClass
 from homeassistant.config_entries import ConfigEntry
 
 
@@ -48,10 +48,14 @@ class EPBEnergySensor(SensorEntity):
         return "kWh"
 
     @property
+    def state_class(self) -> SensorStateClass | str | None:
+        return SensorStateClass.MEASUREMENT
+
+    @property
     def device_info(self):
         """Return device information."""
         return {
-            "identifiers": {(DOMAIN, self._username)},
+            "identifiers": {(DOMAIN, self.sensor_name)},
             "name": "EPB Energy",
             "manufacturer": "EPB",
             "model": "Energy Monitor",
