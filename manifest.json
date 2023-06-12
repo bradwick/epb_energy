@@ -1,7 +1,7 @@
 {
   "domain": "epb_energy",
   "name": "EPB Energy",
-  "integration_type": "device",
+  "integration_type": "sensor",
   "documentation": "https://example.com/epb_energy",
   "requirements": [
     "aiohttp"
