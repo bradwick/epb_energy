@@ -22,7 +22,7 @@ class EpbEnergyApiClient:
             if response.status != 200:
                 return False
             json = await response.json()
-            self.session.headers.add("X-Access-Token", json["tokens"]["access"]["token"])
+            self.session.headers.add("X-User-Token", json["tokens"]["access"]["token"])
         _LOGGER.warning("done_logging in")
         return True
 
