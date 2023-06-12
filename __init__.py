@@ -23,6 +23,19 @@ async def async_setup(hass: HomeAssistant, config: Config):
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up this integration using UI."""
+    client = EpbEnergyApiClient(entry.data.get("username"), entry.data.get("password"))
+    coordinator = EpbEnergyUpdateCoordinator(hass, client)
+
+    await coordinator.async_refresh()
+
+    hass.data[DOMAIN][entry.entry_id] = coordinator
+
+    if entry.options.get("sensor", True):
+        coordinator.platforms.append("sensor")
+        hass.async_add_job(
+            hass.config_entries.async_forward_entry_setup(entry, "sensor")
+        )
+
     return True
 
 
