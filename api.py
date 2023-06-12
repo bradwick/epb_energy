@@ -22,8 +22,6 @@ class EpbEnergyApiClient:
             ) as response:
                 if response.status != 200:
                     return False
-                _LOGGER.warning(response.status)
-                _LOGGER.warning(response.text())
             _LOGGER.warning("done_logging in")
             return True
 
