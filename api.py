@@ -1,6 +1,9 @@
+import logging
 from datetime import datetime
 
 import aiohttp
+
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
 class EpbEnergyApiClient:
@@ -22,6 +25,8 @@ class EpbEnergyApiClient:
             return True
 
     async def get_data(self):
+        _LOGGER.warning("here4")
+
         await self.login()
         async with self.session as session:
             account_info_url = "https://api.epb.com/web/api/v1/account-links/"
