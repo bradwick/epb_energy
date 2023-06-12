@@ -4,10 +4,9 @@
 import voluptuous as vol
 from homeassistant import config_entries
 
-from .const import DOMAIN
 
 
-class EPBEnergyFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+class EPBEnergyFlowHandler(config_entries.ConfigFlow, domain="epb_energy"):
     """Handle an EPB Energy config flow."""
 
     async def async_step_user(self, user_input=None):
