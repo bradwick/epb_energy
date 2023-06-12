@@ -1,6 +1,10 @@
 # epb_energy/__init__.py
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from datetime import timedelta
 
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
+from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+
+from .api import EpbEnergyApiClient
 from .const import DOMAIN, CONF_USERNAME, CONF_PASSWORD
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Config, HomeAssistant
@@ -8,6 +12,8 @@ from homeassistant.core import Config, HomeAssistant
 """The EPB Energy integration."""
 
 DOMAIN = DOMAIN
+
+SCAN_INTERVAL = timedelta(hours=1)
 
 
 async def async_setup(hass: HomeAssistant, config: Config):
@@ -18,3 +24,22 @@ async def async_setup(hass: HomeAssistant, config: Config):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up this integration using UI."""
     return True
+
+
+
+class EpbEnergyUpdateCoordinator(DataUpdateCoordinator):
+    """Class to manage fetching data from the API."""
+
+    def __init__(self, hass: HomeAssistant, client: EpbEnergyApiClient) -> None:
+        """Initialize."""
+        self.api = client
+        self.platforms = []
+
+        super().__init__(hass, name=DOMAIN, update_interval=SCAN_INTERVAL)
+
+    async def _async_update_data(self):
+        """Update data via library."""
+        try:
+            return await self.api.get_data()
+        except Exception as exception:
+            raise UpdateFailed() from exception
