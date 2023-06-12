@@ -14,16 +14,15 @@ class EpbEnergyApiClient:
         self.kwh = 0
 
     async def login(self):
-        async with self.session as session:
-            login_url = "https://api.epb.com/web/api/v1/login/"
-            async with session.post(
-                    login_url,
-                    json={"username": self.username, "password": self.password, "grant_type": "PASSWORD"},
-            ) as response:
-                if response.status != 200:
-                    return False
-            _LOGGER.warning("done_logging in")
-            return True
+        login_url = "https://api.epb.com/web/api/v1/login/"
+        async with self.session.post(
+                login_url,
+                json={"username": self.username, "password": self.password, "grant_type": "PASSWORD"},
+        ) as response:
+            if response.status != 200:
+                return False
+        _LOGGER.warning("done_logging in")
+        return True
 
     async def get_data(self):
         _LOGGER.warning("here4")
