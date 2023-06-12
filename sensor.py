@@ -41,7 +41,11 @@ class EPBEnergySensor(SensorEntity):
     @property
     def native_value(self):
         """Return the state of the sensor."""
-        return await self.coordinator.api.get_data()
+        return self.coordinator.api.kwh
+
+    @property
+    def native_unit_of_measurement(self):
+        return "kWh"
 
     @property
     def device_info(self):

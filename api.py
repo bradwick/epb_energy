@@ -8,6 +8,7 @@ class EpbEnergyApiClient:
         self.session = aiohttp.ClientSession()
         self.username = username
         self.password = password
+        self.kwh = 0
 
     async def login(self):
         async with self.session as session:
@@ -39,4 +40,4 @@ class EpbEnergyApiClient:
             ) as data_response:
                 data = await data_response.json()
                 # Parse the data and update self._state
-                return data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
+                self.kwh = data["data"][datetime.now().strftime("%H")]["a"]["values"]["pos_kwh"]
