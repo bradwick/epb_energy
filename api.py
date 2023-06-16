@@ -55,4 +55,4 @@ class EpbEnergyApiClient:
 
                         self.kwh = data["data"][this_hour]["a"]["values"]["pos_kwh"]
             except Exception as e:
-                _LOGGER.warning(e.with_traceback())
+                _LOGGER.warning(e)

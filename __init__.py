@@ -62,6 +62,8 @@ class EpbEnergyUpdateCoordinator(DataUpdateCoordinator):
         """Update data via library."""
 
         try:
-            return await self.api.get_data()
+            await self.api.get_data()
+            _LOGGER.debug(f"Updating kWh reading to: {self.api.kwh}")
+            return True
         except Exception as exception:
             raise UpdateFailed() from exception
