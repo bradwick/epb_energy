@@ -47,12 +47,14 @@ class EpbEnergyApiClient:
                             json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
                                   "usage_date": datetime.today().strftime('%Y-%m-%d')}
                     ) as data_response:
-                        data = await data_response.json()
+                        data = await data_response
+                        _LOGGER(data.text())
+                        json = data.json()
                         # Parse the data and update self._state
 
                         this_hour = int(datetime.now(tz).strftime("%H"))
 
 
-                        self.kwh = data["data"][this_hour]["a"]["values"]["pos_kwh"]
+                        self.kwh = json["data"][this_hour]["a"]["values"]["pos_kwh"]
             except Exception as e:
                 _LOGGER.warning(e)
