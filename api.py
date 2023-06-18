@@ -1,5 +1,6 @@
 import logging
 from datetime import datetime
+from json import loads
 
 import aiohttp
 from pytz import timezone
@@ -47,9 +48,9 @@ class EpbEnergyApiClient:
                             json={"account_number": account_num, "gis_id": gis_id, "zone_id": "America/New_York",
                                   "usage_date": datetime.today().strftime('%Y-%m-%d')}
                     ) as data_response:
-                        data = await data_response
-                        _LOGGER(data.text())
-                        json = data.json()
+                        data = await data_response.text()
+                        _LOGGER(data)
+                        json = loads(data)
                         # Parse the data and update self._state
 
                         this_hour = int(datetime.now(tz).strftime("%H"))
